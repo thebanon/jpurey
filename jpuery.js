@@ -24,7 +24,10 @@ Element.prototype.off = function(name, callback) { this.removeEventListener(name
 Element.prototype.offset = function(r) { r = this.getBoundingClientRect(); return { top: r.top + (window.pageYOffset || document.documentElement.scrollTop), left: r.left + (window.pageXOffset || document.documentElement.scrollLeft) } };
 Element.prototype.prev = function() { var that = (this.length>1) ? that = this[0] : this; return that.previousArraySibling; };
 Element.prototype.scrollDown = function(s) { this.scrollTop=s; return this; };
-Element.prototype.toggleClass = function(c) { this.hasClass(c) ? this.classList.remove(c) : this.classList.add(c); return this; };
+Element.prototype.toggleClass = function(c) { 
+  console.log(c);
+  this.hasClass(c) ? this.classList.remove(c) : this.classList.add(c); return this; 
+};
 String.prototype.getParam = function (i) { return this.replace(/(^\w+:|^)\/\//, '').split('/').slice(i+1)[0]; };
 String.prototype.hashBang = function (title) { history.pushState(this,title,this); };
 String.prototype.jump = function (e) { history.length === 0 ?  this.dataset.href.goTo() : window.history.back(); console.log(history.length); }
