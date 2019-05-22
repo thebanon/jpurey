@@ -33,4 +33,4 @@ String.prototype.hashBang = function (title) { history.pushState(this,title,this
 String.prototype.jump = function (e) { history.length === 0 ?  this.dataset.href.goTo() : window.history.back(); console.log(history.length); }
 String.prototype.param = function(i, j=[]) { for (i = 0; i < this.valueOf().replace(/(^\w+:|^)\/\//, '').split('/').length; i++) { j.push(this.valueOf().getParam(i)); } };
 String.prototype.newTab = function (a,b) { var that = this.valueOf(), c = b ? a : a.prevArraySibling, t = document.createArray('div'); return new Promise(function(resolve, reject) { a.parentNode.insertBefore(t.attr({'class': 'whl', 'data-href':that}), c);  resolve(that); }); };
-function $(obj) { return (typeof obj === 'object') ? (NodeList.prototype.isPrototypeOf(obj)) ? [].slice.call(obj) : (Element.prototype.isPrototypeOf(obj) ? [obj] : null) : (typeof obj === 'string' ? [].slice.call(document.querySelectorAll(obj)) : null); }
+function $(obj) { return (typeof obj === 'object') ? (NodeList.prototype.isPrototypeOf(obj)) ? [].slice.call(obj) : (Element.prototype.isPrototypeOf(obj) ? [obj] : null) : (typeof obj === 'string' ? [].slice.call(obj) : null); }
