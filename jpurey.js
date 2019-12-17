@@ -13,7 +13,7 @@ Element.prototype.hasClass = function(n) { return new RegExp(' ' + n + ' ').test
 Element.prototype.index = function() { var whl = this; [].forEach.call(whl.parentNode.children, function(a, b, c) { if(a === whl) { whl = b; } }); return whl; };
 Element.prototype.loadImage = function() { this.style.backgroundImage = this.dataset.img; this.removeAttribute('data-img'); };
 Element.prototype.null = function() { this.value=''; return this; };
-Element.prototype.offset = function(r) { r = this.getBoundingClientRect(); return { top: r.top + (window.pageYOffset || document.documentElement.scrollTop), left: r.left + (window.pageXOffset || document.documentElement.scrollLeft) } };
+Element.prototype.offset = function(r=this.getBoundingClientRect()) { return { top: r.top + (window.pageYOffset || document.documentElement.scrollTop), left: r.left + (window.pageXOffset || document.documentElement.scrollLeft) } };
 Element.prototype.prev = function() { var that = (this.length>1) ? that = this[0] : this; return that.previousArraySibling; };
 Element.prototype.scrollDown = function(s) { this.scrollTop=s; return this; };
 Element.prototype.toggleClass = function(c) { this.hasClass(c) ? this.classList.remove(c) : this.classList.add(c); return this; };
@@ -28,7 +28,8 @@ window.qs = s => { return document.querySelector(s); }
 window.$ = obj => { return (typeof obj === 'object') ? (NodeList.prototype.isPrototypeOf(obj)) ? [].slice.call(obj) : (Element.prototype.isPrototypeOf(obj) ? [obj] : null) : (typeof obj === 'string' ? [].slice.call(obj) : null); }
 function ajax(url, settings) { //console.log(url,settings);
   return new Promise((resolve, reject) => { var req;
-    settings && settings.dataType === 'POST' ? req = new Request(url, { method: 'POST', body: (settings.data ? JSON.stringify(settings.data) : null), headers: new Headers() }) : req = url;
+    if(settings && settings.dataType === 'POST') { req = new Request(url, { method: 'POST', body: (settings.data ? JSON.stringify(settings.data) : null), headers: new Headers() }); } else { req = url; }
     fetch(req).then(response => response.text()).then(res => { try { resolve(res); } catch(e) { resolve(e); } });
   });
 }  
+function arraySearch(arr,val,i=0) { do { if(arr[i] === val) { return i; } i++; } while(i<arr.length); }
