@@ -33,3 +33,10 @@ function ajax(url, settings) { //console.log(url,settings);
   });
 }  
 function arraySearch(arr,val,i=0) { do { if(arr[i] === val) { return i; } i++; } while(i<arr.length); }
+function readFile(event) {
+  return new Promise((resolve, reject) => {
+    var file = event.target.files[0], reader  = new FileReader();
+    reader.addEventListener("load", () => resolve(reader.result), false);
+    if(file) { reader.readAsDataURL(file); }
+  });
+}
