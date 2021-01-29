@@ -15,7 +15,18 @@ window.$ = obj => { return (typeof obj === 'object') ? (NodeList.prototype.isPro
 
 function ajax(url, settings) { //console.log(url,settings);
   return new Promise((resolve, reject) => {
-    fetch(settings && settings.dataType === 'POST' ? new Request(url, { method: 'POST', body: (settings.data ? JSON.stringify(settings.data) : null), headers: new Headers() }) : url)
+    var req;
+    if(settings) {
+      if(settings.dataType) {
+        req = new Request(url, { method: settings.dataType, body: (settings.data ? JSON.stringify(settings.data) : null), headers: new Headers() });
+      } else {
+        req = url;
+      }
+    } else {
+      req = url;
+    }
+    console.log({url,req});
+    fetch(req)
       .then(response => {
         if(!response.ok) { throw new Error(JSON.stringify({code:response.status,message:response.statusText})); }
         return response.text()
